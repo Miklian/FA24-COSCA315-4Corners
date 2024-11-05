@@ -38,7 +38,7 @@ class Problem:
         return (self.pacman, self.food)
 
     def isGoal (self, node):
-        return node[1] == []
+        return node[1] == [] # when remaining food list is empty
 
     def transition (self, node):
         x, y = node[0]
@@ -79,7 +79,7 @@ class Problem:
                 plan2.reverse()
                 self.dist[(d, f)] = plan2
 
-    def BFS(self, start_pos, target_pos):
+    def BFS(self, start_pos, target_pos): # returns min # of steps to move from start to target node
         def construct_path(node, visited):
             path = []
             while node:

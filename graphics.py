@@ -8,11 +8,8 @@ class Window:
         self.canvas.pack()
         self.refresh()
         
-
     def arc(self, x1, y1, x2, y2, startAngle, endAngle, outline, fill, width):
-        return self.canvas.create_arc(x1, y1, x2, y2,
-                               start=startAngle, extent=endAngle,
-                               outline=outline, fill=fill, width=width)
+        return self.canvas.create_arc(x1, y1, x2, y2,start=startAngle, extent=endAngle, outline=outline, fill=fill, width=width)
 
     def oval(self, x1, y1, x2, y2, fill, width):
         return self.canvas.create_oval(x1, y1, x2, y2,
@@ -20,7 +17,6 @@ class Window:
 
     def text(self, x, y, str, color='blue'):
         return self.canvas.create_text(x, y, font=("Helvetika", 20), text=str, fill=color)
-
     
     def rec(self, x1, y1, x2, y2, outline, fill, width):
         return self.canvas.create_rectangle(x1, y1, x2, y2, outline=outline, fill=fill, width=width)
@@ -33,5 +29,6 @@ class Window:
 
     def refresh(self):
         self.canvas.update()
+        
     def wait(self, t):
         time.sleep(t)

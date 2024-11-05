@@ -117,10 +117,9 @@ filename = 'tinyCorners.txt'
 # BFS:
 # -------------------------------------------------------
 
-
- 
 # record start time
 startTime = time.time()
+
 plan = bfs(p)
 endTime = time.time()
 print (plan)
@@ -136,7 +135,7 @@ pac.runPlan(p, plan)
 # UCS:
 # -------------------------------------------------------
 
-p = Problem(filename)
+p = Problem(mediumCorners.txt) # 4 options: mediumCorners.txt, smallSearch.txt, tinyCorners.txt, tinySearch.txt
 startTime = time.time()
 p.compute_distances()
 cost, plan = ucs(p)
