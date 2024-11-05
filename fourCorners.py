@@ -52,7 +52,7 @@ def ucs(p):
 
         # Check if node is the goal node
         if p.isGoal(node):
-            print ('ucs number of nodes explored: ', count)
+            print ('UCS number of nodes explored: ', count)
             return gCost, construct_path(node, visited)
 
         count += 1
@@ -90,32 +90,27 @@ def AStar (p):
         
         # count keeps track of the number of nodes explored.
         count += 1
+        neighbors = p.nextStates(node)
 
-        # Complete one line of code here
-        # get next states or neighbor states by calling nextState
-        # from the FourCornerProblem passing in the node.
-        
-        
         # loop on all neighbors to add them with their cost
         # to the priority queue
         for step_cost, neighbor, a in neighbors:
             f = gCost + step_cost + p.h(neighbor)
             # Add nodes to priority queue
-            newState= (f, gCost+step_cost, neighbor, node, a)
-            # complete one line of code here
+            newState = (f, gCost+step_cost, neighbor, node, a)
             # insert newState to the priority queue pq
+            heapq.heappush(pq, newState)
             
     return None, None
 
-filename = 'tinyCorners.txt'
-
-# Complete your code here:
-# Get an instance of the problem:
-
+# 4 env options: 
+# mediumCorners.txt, smallSearch.txt, tinyCorners.txt, tinySearch.txt
+filename = 'smallSearch.txt'
 
 # -------------------------------------------------------
 # BFS:
 # -------------------------------------------------------
+p = Problem(filename)
 
 # record start time
 startTime = time.time()
@@ -123,7 +118,7 @@ startTime = time.time()
 plan = bfs(p)
 endTime = time.time()
 print (plan)
-print ('plan length:', len(plan))
+print ('plan length = ', len(plan))
 print ('Time: ', (endTime - startTime) * 10**3, "ms")
 print ('------------------------')
 
@@ -135,15 +130,17 @@ pac.runPlan(p, plan)
 # UCS:
 # -------------------------------------------------------
 
-p = Problem(mediumCorners.txt) # 4 options: mediumCorners.txt, smallSearch.txt, tinyCorners.txt, tinySearch.txt
+p = Problem(filename)
+
 startTime = time.time()
 p.compute_distances()
 cost, plan = ucs(p)
 endTime = time.time()
-print('cost: ', cost)
+print('cost = ', cost)
 print(plan)
-print('plan length=', len(plan))
+print('plan length =', len(plan))
 print ('Time: ', (endTime - startTime) * 10**3, "ms")
+print ('------------------------')
 
 pac = pacmanGraphic(1300, 700)
 pac.setup(p)
@@ -152,27 +149,21 @@ pac.runPlan(p, plan)
 # -------------------------------------------------------
 # A*
 # -------------------------------------------------------
-
-# Complete one line of code here:
-# get an instance of the Problem passing
-#    in the file name
+p = Problem(filename)
 
 startTime = time.time()
-# Complete two lines of code here
-# 1) call compute distances method in FourCornersProblem
-
-# 2) Call Astar passing in the instance of the Problem,
-#    it returns the cost and the plan similar to ucs
-
+p.compute_distances()
+cost, plan = AStar(p)
 endTime = time.time()
-print ('Time: ', (endTime - startTime) * 10**3, "ms")
-# 3) print the cost, the plan and the plan length
-print('cost=', cost)
+# Printing the cost, the plan and the plan length
+print('cost =', cost)
 print(plan)
-print('plan length=', len(plan))
+print('plan length =', len(plan))
+print ('Time: ', (endTime - startTime) * 10**3, "ms")
+print ('------------------------')
 
-# Leave this code for plan execute and
-# moves pacman to collect the dots.
+
+# Plan execution moving Pacman to collect the dots.
 pac = pacmanGraphic(1300, 700)
 pac.setup(p)
 pac.runPlan(p, plan)

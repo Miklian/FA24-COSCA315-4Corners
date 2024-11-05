@@ -131,6 +131,25 @@ class Problem:
     def h(self, state):
         # heuristic method that computes the minimum manhattan distance
         # from pacman position to every remaining dot.
-        if state[1] == []: return 0
-        # Complete your code here
+        if state[1] == []: return 0 # if food == empty
         
+        pac_pos, f = state
+        mst = {}
+        
+        # Set each food_pos to be false; not yet computed for shortest dist
+        for each_dot in f:
+            mst[each_dot] = False 
+            #print(mst)
+        
+        # Accumulator for h cost
+        sumSteps = 0
+        
+        for each_dot in f:
+            while mst[each_dot] == False:
+                # min manhattan dist (|x1 - x2| + |y1 + y2|)
+                s = min(abs(pac_pos[0] - each_dot[0]) + abs(pac_pos[1] - each_dot[1]) for each_dot in f)
+                mst[each_dot] = True
+                pac_pos = each_dot
+                sumSteps += s
+                
+        return sumSteps
